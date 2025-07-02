@@ -3,8 +3,21 @@ import pandas as pd
 from collections import defaultdict
 
 
-def get_price_history(start: str, end: str, key: str) -> pd.DataFrame:
-    url = f'https://rest.coincap.io/v3/assets/bitcoin/history?interval=d1&start={start}&end={end}&apiKey={key}'
+def get_price_history(start: str, end: str, key: str, asset: str='bitcoin') -> pd.DataFrame:
+    """
+    Download the price history of a crypto asset
+
+    Args:
+        start (str): The timestamp in milliseconds of the start date
+        end (str): The timestamp in milliseconds of the end date
+        key (str): The API key
+        asset (str): The name of the crypto asset
+
+    Returns:
+        pd.DataFrame: The price history
+    """
+    
+    url = f'https://rest.coincap.io/v3/assets/{asset}/history?interval=d1&start={start}&end={end}&apiKey={key}'
     response = requests.get(url)
 
     data = response.json()
