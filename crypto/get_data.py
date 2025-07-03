@@ -16,7 +16,7 @@ def get_price_history(start: str, end: str, key: str, asset: str='bitcoin') -> p
     Returns:
         pd.DataFrame: The price history
     """
-    
+
     url = f'https://rest.coincap.io/v3/assets/{asset}/history?interval=d1&start={start}&end={end}&apiKey={key}'
     response = requests.get(url)
 
