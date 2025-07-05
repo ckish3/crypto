@@ -44,5 +44,5 @@ class CryptoPrice(Base):
 
         return max_dates
     def __repr__(self) -> str:
-        return f"StockPrice(id={self.id}, symbol={self.symbol}, date={self.date}, open_price={self.open_price}, close_price={self.close_price})"
+        return f"CryptoPrice(id={self.id}, currency_name={self.currency_name}, date={self.date}, price={self.price})"
 
