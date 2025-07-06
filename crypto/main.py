@@ -21,6 +21,14 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def format_timestamp(timestamp: float) -> str:
+    """
+        Formats a timestamp to the format expected by the CoinCap API
+    Args:
+        timestamp (float): The timestamp in seconds
+
+    Returns:
+        str: The formatted timestamp in milliseconds
+    """
     result = str(int(timestamp)) + '000'
     return result
 
