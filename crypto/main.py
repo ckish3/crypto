@@ -20,9 +20,12 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+def format_timestamp(timestamp: float) -> str:
+    result = str(int(timestamp)) + '000'
+    return result
 
 def main():
-    year_ago = str((datetime.datetime.now() - datetime.timedelta(days=365)).timestamp())
+    year_ago = format_timestamp((datetime.datetime.now() - datetime.timedelta(days=365)).timestamp())
     connection_string = os.getenv('DATABASE_URL')
     db = database_actions.DatabaseActions(connection_string)
     engine = db.get_engine()
@@ -31,16 +34,17 @@ def main():
 
     api_key = os.getenv('COINCAP_KEY')
 
-    curriencies = ['bitcoin', 'ethereum']
+    currencies = ['bitcoin', 'ethereum']
 
-    dates = crypto_price.CryptoPrice.get_max_date_by_currency(db)
+    dates = crypto_price.CryptoPrice().get_max_date_by_currency(db)
 
-    for currency in curriencies:
+    for currency in currencies:
         if currency in dates:
-            start = str(datetime.datetime.strptime(dates[currency], '%Y-%m-%d').date().timestamp()) + '000'
+            start = format_timestamp(datetime.datetime.strptime(dates[currency], '%Y-%m-%d').date().timestamp())
         else:
             start = year_ago
-        end = str((datetime.datetime.now() - datetime.timedelta(days=1)).timestamp())
+        end = format_timestamp((datetime.datetime.now() - datetime.timedelta(days=1)).timestamp())
+        logger.info(f'Start: {start}, End: {end}')
         new_entries = get_data.get_new_price_table_entries(start, end, api_key, currency)
         with Session(engine) as session:
             logger.info(f'Adding {len(new_entries)} new entries for {currency}')

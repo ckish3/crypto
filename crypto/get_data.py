@@ -2,9 +2,11 @@ import requests
 import pandas as pd
 from typing import List
 import datetime
+import logging
 
-from crypto.crypto_price import CryptoPrice
+from crypto_price import CryptoPrice
 
+logger = logging.getLogger(__name__)
 
 def download_price_history(start: str, end: str, key: str, asset: str) -> List:
     """
@@ -32,6 +34,8 @@ def download_price_history(start: str, end: str, key: str, asset: str) -> List:
         raise Exception('No crypto price history retrieved')
 
     data = data['data']
+
+    logger.info(f'Retrieved {len(data)} new price history entries for {asset}')
 
     return data
 
