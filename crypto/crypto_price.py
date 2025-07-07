@@ -1,4 +1,8 @@
-import datetime
+"""
+This module contains the CryptoPrice class, which represents a row in the cryptocurrency_price table
+
+"""
+
 from database_base import Base
 import database_actions
 from sqlalchemy import String, Date, Float, text, BigInteger
