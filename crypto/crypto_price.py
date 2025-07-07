@@ -5,7 +5,7 @@ This module contains the CryptoPrice class, which represents a row in the crypto
 
 from database_base import Base
 import database_actions
-from sqlalchemy import String, Date, Float, text, BigInteger
+from sqlalchemy import String, Date, text
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from typing import Dict
